@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const API_URL = "http://localhost:5001";
+const API_URL = "/api";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -10,7 +10,7 @@ function App() {
   const [description, setDescription] = useState("");
 
   const fetchTasks = async () => {
-    const response = await axios.get(`${API_URL}/api/tasks`);
+    const response = await axios.get(`${API_URL}/tasks`);
     setTasks(response.data);
   };
 
@@ -23,7 +23,7 @@ function App() {
 
     if (!title.trim()) return;
 
-    await axios.post(`${API_URL}/api/tasks`, {
+    await axios.post(`${API_URL}/tasks`, {
       title,
       description,
     });
@@ -35,7 +35,7 @@ function App() {
   };
 
   const toggleTask = async (task) => {
-    await axios.put(`${API_URL}/api/tasks/${task._id}`, {
+    await axios.put(`${API_URL}/tasks/${task._id}`, {
       completed: !task.completed,
     });
 
@@ -43,7 +43,7 @@ function App() {
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${API_URL}/api/tasks/${id}`);
+    await axios.delete(`${API_URL}/tasks/${id}`);
     fetchTasks();
   };
 

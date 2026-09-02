@@ -1,0 +1,50 @@
+---
+- name: Configure and deploy MERN application
+  hosts: webservers
+  become: true
+
+  tasks:
+
+    - name: Update apt package cache
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create application directory
+      file:
+        path: /home/ubuntu/mern-app
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: "0755"
+
+    - name: Copy production Docker Compose file
+      copy:
+        src: ../docker-compose.prod.yml
+        dest: /home/ubuntu/mern-app/docker-compose.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: "0644"
+
+    - name: Pull Docker images
+      command:
+        cmd: docker compose pull
+        chdir: /home/ubuntu/mern-app
+
+    - name: Start MERN application
+      command:
+        cmd: docker compose up -d
+        chdir: /home/ubuntu/mern-app
