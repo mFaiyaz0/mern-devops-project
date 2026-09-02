@@ -1,0 +1,34 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# React/Vite
+dist/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Ansible
+*.retry
+
+# SSH/private keys
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
