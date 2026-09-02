@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Build and Deploy MERN Application
 
 on:
   push:
@@ -37,3 +37,22 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: faizanite/mern-taskmanager-backend:latest
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2_key.pem
+          chmod 600 ~/.ssh/ec2_key.pem
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Install Ansible
+        run: |
+          python3 -m pip install ansible
+
+      - name: Deploy using Ansible
+        run: |
+          cd ansible
+          ansible-playbook deploy.yml \
+            -i inventory \
+            --private-key ~/.ssh/ec2_key.pem \
+            -e "ansible_host=${{ secrets.EC2_HOST }}"
