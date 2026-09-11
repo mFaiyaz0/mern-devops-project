@@ -3,6 +3,9 @@
   hosts: webservers
   become: true
 
+  vars:
+    app_dir: /home/ubuntu/mern-app
+
   tasks:
 
     - name: Update apt package cache
@@ -25,7 +28,7 @@
 
     - name: Create application directory
       file:
-        path: /home/ubuntu/mern-app
+        path: "{{ app_dir }}"
         state: directory
         owner: ubuntu
         group: ubuntu
@@ -34,17 +37,30 @@
     - name: Copy production Docker Compose file
       copy:
         src: ../docker-compose.prod.yml
-        dest: /home/ubuntu/mern-app/docker-compose.yml
+        dest: "{{ app_dir }}/docker-compose.yml"
         owner: ubuntu
         group: ubuntu
         mode: "0644"
 
+    - name: Create production environment file
+      copy:
+        dest: "{{ app_dir }}/.env"
+        owner: ubuntu
+        group: ubuntu
+        mode: "0600"
+        content: |
+          JWT_SECRET={{ jwt_secret }}
+          ADMIN_NAME={{ admin_name }}
+          ADMIN_EMAIL={{ admin_email }}
+          ADMIN_PASSWORD={{ admin_password }}
+      no_log: true
+
     - name: Pull Docker images
       command:
         cmd: docker compose pull
-        chdir: /home/ubuntu/mern-app
+        chdir: "{{ app_dir }}"
 
     - name: Start MERN application
       command:
         cmd: docker compose up -d
-        chdir: /home/ubuntu/mern-app
+        chdir: "{{ app_dir }}"

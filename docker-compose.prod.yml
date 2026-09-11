@@ -1,5 +1,4 @@
 services:
-
   frontend:
     image: faizanite/mern-taskmanager-frontend:latest
     ports:
@@ -14,6 +13,7 @@ services:
     environment:
       PORT: 5001
       MONGO_URI: mongodb://mongo:27017/taskmanager
+      JWT_SECRET: ${JWT_SECRET}
     depends_on:
       - mongo
 
