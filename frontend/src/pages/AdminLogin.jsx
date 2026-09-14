@@ -4,13 +4,13 @@ import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { useTheme } from "../context/ThemeContext";
 
-export default function Login() {
+export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const { login, loading } = useAuth();
+  const { login, logout, loading } = useAuth();
   const toast = useToast();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -20,30 +20,32 @@ export default function Login() {
     setError("");
 
     if (!email || !password) {
-      setError("Please enter your email and password.");
+      setError("Please enter your administrator credentials.");
       return;
     }
 
     try {
       const loggedUser = await login(email, password);
-      toast.success(`Welcome back, ${loggedUser.name}!`);
 
       if (loggedUser.role === "admin") {
+        toast.success(`Welcome to Admin Console, ${loggedUser.name}!`);
         navigate("/admin");
       } else {
-        navigate("/dashboard");
+        logout();
+        setError("Access Denied: You do not have administrator privileges.");
+        toast.error("Access Denied: Administrator account required.");
       }
     } catch (err) {
       const errorMsg =
-        err.response?.data?.message || "Invalid email or password.";
+        err.response?.data?.message || "Invalid admin email or password.";
       setError(errorMsg);
       toast.error(errorMsg);
     }
   };
 
-  const fillDemo = (demoEmail, demoPass) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
+  const fillAdminDemo = () => {
+    setEmail("admin@example.com");
+    setPassword("admin123");
     setError("");
   };
 
@@ -81,34 +83,35 @@ export default function Login() {
       <div className="tf-auth-box">
         <div className="tf-auth-header">
           <Link to="/" className="tf-auth-brand-center">
-            <div className="tf-brand-icon">
+            <div className="tf-brand-icon" style={{ background: "var(--primary)" }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2.5"
-                  d="M5 13l4 4L19 7"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                 />
               </svg>
             </div>
             <span className="tf-brand-name">Taskora</span>
+            <span className="tf-badge tf-badge-admin" style={{ marginLeft: "4px" }}>Admin Portal</span>
           </Link>
-          <h2>Log in</h2>
-          <p>Welcome back. Please enter your credentials to continue.</p>
+          <h2>Admin Sign In</h2>
+          <p>Restricted access for system administrators and managers.</p>
         </div>
 
-        {/* Student Demo Fast Fill */}
+        {/* Admin Demo Fast Fill */}
         <div className="tf-demo-badge-wrap">
           <button
             type="button"
             className="tf-demo-chip"
-            onClick={() => fillDemo("student@example.com", "student123")}
-            title="Auto-fill demo credentials"
+            onClick={fillAdminDemo}
+            title="Auto-fill admin demo credentials"
           >
             <svg viewBox="0 0 20 20" fill="currentColor" className="tf-demo-chip-icon">
-              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+              <path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm2 6V6a2 2 0 10-4 0v2h4z" clipRule="evenodd" />
             </svg>
-            <span>Auto-fill Demo Credentials</span>
+            <span>Auto-fill Admin Credentials</span>
           </button>
         </div>
 
@@ -120,14 +123,14 @@ export default function Login() {
 
         <form onSubmit={handleSubmit}>
           <div className="tf-form-group">
-            <label className="tf-label" htmlFor="login-email">
-              Email
+            <label className="tf-label" htmlFor="admin-email">
+              Admin Email
             </label>
             <input
-              id="login-email"
+              id="admin-email"
               type="email"
               className="tf-input"
-              placeholder="Enter your email..."
+              placeholder="admin@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -136,15 +139,15 @@ export default function Login() {
           </div>
 
           <div className="tf-form-group">
-            <label className="tf-label" htmlFor="login-password">
-              Password
+            <label className="tf-label" htmlFor="admin-password">
+              Admin Password
             </label>
             <div className="tf-password-wrap">
               <input
-                id="login-password"
+                id="admin-password"
                 type={showPassword ? "text" : "password"}
                 className="tf-input"
-                placeholder="Enter your password..."
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -184,12 +187,12 @@ export default function Login() {
             disabled={loading}
             style={{ marginTop: "10px" }}
           >
-            {loading ? "Logging in..." : "Log in"}
+            {loading ? "Authenticating Admin..." : "Sign in as Administrator"}
           </button>
         </form>
 
         <p className="tf-auth-footer-text">
-          Don't have an account? <Link to="/register">Sign up</Link>
+          Looking for student login? <Link to="/login">Student / User Sign In</Link>
         </p>
       </div>
     </div>
