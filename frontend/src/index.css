@@ -1,111 +1,300 @@
+/* ==========================================================================
+   PLANORA SIGNATURE DESIGN SYSTEM & AURORA TOKENS
+   A unique, luxury, high-performance productivity experience
+   ========================================================================== */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* User Signature Tri-Color Palette (#F3E6D5, #D96868, #FBEFEF) */
+  --color-cream: #F3E6D5;
+  --color-coral: #D96868;
+  --color-blush: #FBEFEF;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Primary & Accents */
+  --primary: #D96868;
+  --primary-hover: #c45454;
+  --primary-dark: #b04343;
+  --primary-light: rgba(217, 104, 104, 0.12);
+  --primary-border: rgba(217, 104, 104, 0.3);
+  --primary-glow: rgba(217, 104, 104, 0.35);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --cream: #F3E6D5;
+  --cream-light: rgba(243, 230, 213, 0.35);
+  --cream-border: rgba(243, 230, 213, 0.7);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  --blush: #FBEFEF;
+  --blush-deep: #f5dfdf;
+
+  --maroon: #D96868;
+  --maroon-deep: #4a2c32;
+  --maroon-rich: #b04343;
+  --maroon-bright: #D96868;
+  --maroon-light: rgba(217, 104, 104, 0.12);
+  --maroon-border: rgba(217, 104, 104, 0.28);
+  --maroon-glow: rgba(217, 104, 104, 0.35);
+
+  --accent-indigo: #6366f1;
+  --accent-violet: #8b5cf6;
+  --accent-amber: #f59e0b;
+  --accent-emerald: #10b981;
+  --accent-cyan: #06b6d4;
+
+  --brand-gradient: linear-gradient(135deg, #D96868 0%, #c45454 100%);
+  --brand-gradient-hover: linear-gradient(135deg, #e47575 0%, #D96868 100%);
+  --aurora-badge-gradient: linear-gradient(135deg, rgba(217, 104, 104, 0.12) 0%, rgba(243, 230, 213, 0.45) 100%);
+
+  /* Priority Flag Colors */
+  --p1-red: #D96868;
+  --p2-orange: #f97316;
+  --p3-blue: #3b82f6;
+  --p4-grey: #64748b;
+
+  /* Status Colors */
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-border: rgba(16, 185, 129, 0.25);
+
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.25);
+
+  --info: #0ea5e9;
+  --info-bg: rgba(14, 165, 233, 0.1);
+
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+
+  /* Radius Tokens */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* ==========================================================================
+   LIGHT THEME (Planora Ambient Light)
+   ========================================================================== */
+:root,
+[data-theme="light"] {
+  --bg-app: #fcf9f6;
+  --bg-surface: #ffffff;
+  --bg-sidebar: #f8f1e8;
+  --bg-header: rgba(255, 255, 255, 0.88);
+  --bg-hover: #F3E6D5;
+  --bg-active: #ebd8c2;
+  --bg-muted: #fcf7f2;
+  --bg-subtle: #f8f1e8;
+  --bg-overlay: rgba(35, 20, 24, 0.5);
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(243, 230, 213, 0.9);
+
+  --border: #eedfcf;
+  --border-subtle: #f7eee3;
+  --border-strong: #dfcbba;
+  --border-focus: #D96868;
+
+  --text-primary: #231618;
+  --text-secondary: #5c4549;
+  --text-muted: #8c7377;
+  --text-dimmed: #b59fa3;
+
+  --shadow-xs: 0 1px 2px rgba(217, 104, 104, 0.04);
+  --shadow-sm: 0 2px 4px rgba(217, 104, 104, 0.06);
+  --shadow-md: 0 6px 16px rgba(217, 104, 104, 0.08);
+  --shadow-lg: 0 12px 32px rgba(217, 104, 104, 0.1);
+  --shadow-xl: 0 20px 48px rgba(217, 104, 104, 0.14);
+
+  --card-shadow: 0 2px 8px rgba(217, 104, 104, 0.08), 0 1px 3px rgba(243, 230, 213, 0.4);
+  --card-bg-maroon: linear-gradient(180deg, #ffffff 0%, #FBEFEF 100%);
+  --card-border-maroon: #F3E6D5;
+  --card-hover-maroon: linear-gradient(180deg, #FBEFEF 0%, #F3E6D5 100%);
+  --card-hover-border-maroon: #D96868;
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   DARK THEME (Planora Deep Obsidian Aurora)
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-app: #140d0f;
+  --bg-surface: #1e1316;
+  --bg-sidebar: #190f12;
+  --bg-header: rgba(30, 19, 22, 0.85);
+  --bg-hover: #2e1c21;
+  --bg-active: #40272e;
+  --bg-muted: #24161a;
+  --bg-subtle: #1c1014;
+  --bg-overlay: rgba(8, 4, 6, 0.85);
+
+  --glass-bg: rgba(30, 19, 22, 0.8);
+  --glass-border: rgba(74, 44, 50, 0.6);
+
+  --border: #382227;
+  --border-subtle: #29181d;
+  --border-strong: #4f3037;
+  --border-focus: #D96868;
+
+  --text-primary: #fdfaf8;
+  --text-secondary: #e6d3cf;
+  --text-muted: #bda5a1;
+  --text-dimmed: #8c7370;
+
+  --primary-light: rgba(217, 104, 104, 0.18);
+  --primary-border: rgba(217, 104, 104, 0.4);
+
+  --card-bg-maroon: linear-gradient(165deg, #2a191d 0%, #1c1114 100%);
+  --card-border-maroon: #4d2d34;
+  --card-hover-maroon: linear-gradient(165deg, #382127 0%, #241519 100%);
+  --card-hover-border-maroon: #D96868;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 24px 54px rgba(0, 0, 0, 0.85);
+
+  --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(217, 104, 104, 0.28);
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   RESETS & GLOBAL STYLES
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-app);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: inherit;
+  overflow-x: hidden;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
 p {
-  margin: 0;
+  color: var(--text-secondary);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+a:hover {
+  color: var(--primary-hover);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text-primary);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dimmed);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes checkPop {
+  0% { transform: scale(0.7); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseZen {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes auroraFloat {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
