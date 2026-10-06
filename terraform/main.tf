@@ -26,26 +26,10 @@ data "aws_subnets" "default" {
   }
 }
 
-# Get the latest Ubuntu 24.04 LTS AMI
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 # Security group
 resource "aws_security_group" "mern_sg" {
-  name        = "mern-devops-sg"
-  description = "Security group for MERN DevOps application"
+  name        = "launch-wizard-1"
+  description = "launch-wizard-1 created 2026-09-14T16:37:04.585Z"
   vpc_id      = data.aws_vpc.default.id
 
   # SSH
@@ -90,15 +74,22 @@ resource "aws_security_group" "mern_sg" {
 
 # EC2 instance
 resource "aws_instance" "mern_server" {
-  ami           = data.aws_ami.ubuntu.id
+  # Pin the exact AMI currently used by the running EC2
+  ami           = "ami-006f82a1d5a27da54"
   instance_type = var.instance_type
   key_name      = var.key_name
 
-  subnet_id = data.aws_subnets.default.ids[0]
+  # Keep the existing subnet
+  subnet_id = "subnet-09e27553d3d808cb5"
 
   vpc_security_group_ids = [
     aws_security_group.mern_sg.id
   ]
+
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp3"
+  }
 
   tags = {
     Name = "mern-devops-server"
